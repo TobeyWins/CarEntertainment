@@ -1,0 +1,46 @@
+  body {
+    background-color: rgb(236, 236, 236);
+  }
+  
+  .gridElement { 
+    display: grid; 
+    grid-template-rows:max-content max-content; 
+    grid-template-columns:max-content max-content max-content max-content; 
+    align-items: center;
+    justify-items: center;
+  }
+
+  .returnButton {
+    visibility: hidden;
+  }
+
+  div[type="button"] {
+    border-radius: 15px;
+    width: 5em;
+    height: 5em;
+    margin: 0.5em;
+
+    border: none;
+    background-color: rgba(0, 0, 0, 0.377);
+    line-height: 5em;
+    text-align: center;
+  }
+
+  div[type="button"]:hover {
+    background-color: yellow;
+  }
+
+  .flexGridElement { 
+    display: flex; 
+    flex-direction: row;
+    align-items: center;
+    justify-items: center;
+  }
+
+  .flexGridButton {
+    flex: 1;
+  }
+
+  .contentItem {
+    visibility: hidden;
+  }
