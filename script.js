@@ -18,7 +18,5 @@ document.getElementById("B3").addEventListener("click", function () { setVisible
 document.getElementById("B4").addEventListener("click", function () { setVisibleById("v4") });
 document.getElementById("B5").addEventListener("click", function () { setVisibleById("v5") });
 document.getElementById("B6").addEventListener("click", function () { setVisibleById("v6") });
-document.getElementById("B7").addEventListener("click", function () { setVisibleById("v7") });
-document.getElementById("B8").addEventListener("click", function () { setVisibleById("v8") });
 
 document.getElementById("returnButton").addEventListener("click", function () { setHiddenById() });
