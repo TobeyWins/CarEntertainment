@@ -1,39 +1,63 @@
+html {
+  height: 100%;
+
+  background-image: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(37,44,102,1) 100%);
+  background-repeat: no-repeat;
+
+  font-family: Arial, Helvetica, sans-serif;
+}
+
   body {
-    background-color: rgb(236, 236, 236);
+    color:rgb(255, 255, 255);
   }
   
+  .gridContainer {
+    width: max-content;
+    text-align: center;
+  }
+
   .gridElement { 
     display: grid; 
-    grid-template-rows:max-content max-content; 
+    grid-template-rows:max-content max-content max-content max-content; 
     grid-template-columns:max-content max-content max-content; 
     align-items: center;
     justify-items: center;
+  }
+
+  .fas, .far {
+    font-size: 1.5em;
+  }
+
+  div[type="button"] {
+    border-radius: 15px;
+    width: 10em;
+    height: 10em;
+    line-height: 10em;
+    margin: 0.5em;
+
+    border: none;
+    background-color: rgba(255, 255, 255, 0.250);
+
+    transition-duration: 0.25s; /*used for leaving the gridbutton*/
+  }
+  
+  .gridButton {
+    align-content: center;
   }
 
   .returnButton {
     display: none;
   }
 
-  .fas, .far {
-    font-size: 1.5em;
-    padding-right: 0.08em;
-    padding-top: 1.1em;
-  }
-
-  div[type="button"] {
-    border-radius: 15px;
-    width: 5em;
-    height: 5em;
-    margin: 0.5em;
-
-    border: none;
-    background-color: rgba(0, 0, 0, 0.377);
-    line-height: 5em;
-    text-align: center;
-  }
-
   div[type="button"]:hover {
-    background-color: yellow;
+    background-color: rgba(255, 255, 255, 0.500);
+    color:black;
+    transition-duration: 0.25s;
+  }
+
+  i {
+    width: 100%;
+    text-align: center;
   }
 
   .flexGridElement { 
@@ -49,4 +73,8 @@
 
   .contentItem {
     display: none;
+  }
+
+  .pageHeader {
+    padding-left: 1em;
   }
