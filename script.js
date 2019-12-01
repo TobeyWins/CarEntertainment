@@ -1,15 +1,15 @@
 var activeItem;
 
 function setVisibleById(idToShow) {
-    document.getElementById(idToShow).style.visibility='visible';
-    document.getElementById("returnButton").style.visibility='visible';
+    document.getElementById(idToShow).style.display='block';
+    document.getElementById("returnButton").style.display='block';
     
     activeItem = idToShow;
 }
 
 function setHiddenById() {
-    document.getElementById(activeItem).style.visibility='hidden';
-    document.getElementById("returnButton").style.visibility='hidden';
+    document.getElementById(activeItem).style.display='none';
+    document.getElementById("returnButton").style.display='none';
 }
 
 document.getElementById("B1").addEventListener("click", function () { setVisibleById("v1") });

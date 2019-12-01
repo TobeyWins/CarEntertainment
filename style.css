@@ -11,7 +11,7 @@
   }
 
   .returnButton {
-    visibility: hidden;
+    display: none;
   }
 
   .fas, .far {
@@ -48,5 +48,5 @@
   }
 
   .contentItem {
-    visibility: hidden;
+    display: none;
   }
