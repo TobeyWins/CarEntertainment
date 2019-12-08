@@ -37,10 +37,11 @@ function showUpdateClock() {
         months = "0" + months;
     }
 
-    var timeString = hours + ":" + minutes + ":" +  seconds + "\n\n" + 
-    days + "." + months + "." + dateTime.getFullYear(); 
+    var timeString = hours + ":" + minutes + ":" +  seconds; 
+    var dateString = days + "." + months + "." + dateTime.getFullYear(); 
 
-    document.getElementById("date").innerHTML = timeString; 
+    document.getElementById("time").innerHTML = timeString; 
+    document.getElementById("date").innerHTML = dateString; 
     setupClock(); //reset timer
 }
 
@@ -67,46 +68,21 @@ function hideActiveElement() {
 }
 
 function hideGridButtons() {
+    var menuContainer = document.getElementById("menuCenterContainer");
+    menuContainer.style.display='none';    
     
-    var gridButtons = document.getElementsByClassName("gridButton");
-    for (button of gridButtons) {
-        button.style.display='none';    
-    }
-
-    var gridText = document.getElementsByClassName("gridText");
-    for (text of gridText) {
-        text.style.display='none';    
-    }
-
-    var gridText = document.getElementsByClassName("centerGrid");
-    for (text of gridText) {
-        text.style.display='none';    
-    }
 }
 
 function showGridButtons() {
-    
-    var gridButtons = document.getElementsByClassName("gridButton");
-    for (button of gridButtons) {
-        button.style.display='block';    
-    }
-
-    var gridText = document.getElementsByClassName("gridText");
-    for (text of gridText) {
-        text.style.display='block';    
-    }
-
-    var gridText = document.getElementsByClassName("centerGrid");
-    for (text of gridText) {
-        text.style.display='block';    
-    }
+    var menuContainer = document.getElementById("menuCenterContainer");
+    menuContainer.style.display='block';   
 }
 
-document.getElementById("B1").addEventListener("click", function () { displaySelectedElement("v1") });
-document.getElementById("B2").addEventListener("click", function () { displaySelectedElement("v2") });
+document.getElementById("carDataButton").addEventListener("click", function () { displaySelectedElement("carDataCenterContainer") });
+document.getElementById("musicButton").addEventListener("click", function () { displaySelectedElement("musicPlayerContainer") });
 document.getElementById("B3").addEventListener("click", function () { displaySelectedElement("v3") });
 document.getElementById("B4").addEventListener("click", function () { displaySelectedElement("v4") });
-document.getElementById("B5").addEventListener("click", function () { displaySelectedElement("v5") });
+document.getElementById("carFunctionsButton").addEventListener("click", function () { displaySelectedElement("functionsCenterContainer") });
 document.getElementById("B6").addEventListener("click", function () { displaySelectedElement("v6") });
 
 document.getElementById("returnButton").addEventListener("click", function () { hideActiveElement() });

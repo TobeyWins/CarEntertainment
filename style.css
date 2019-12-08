@@ -1,3 +1,4 @@
+/* tags */
 html {
   height: 100%;
 
@@ -5,16 +6,17 @@ html {
   background-repeat: no-repeat;
 
   font-family: Arial, Helvetica, sans-serif;
-
-  display: grid;
-  grid-template-areas: "header" "main" "footer";
-  grid-template-columns: auto;
-  grid-template-rows: auto auto 8vh;
   height: 100vh;
 }
 
 body {    
   color:rgb(255, 255, 255);
+  
+  display: grid;
+  grid-template-areas: "header header header" "nav main side" "footer footer footer"; /*"header" "main" "footer";*/
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: max-content auto auto;
+
 }
   
 header {
@@ -24,9 +26,9 @@ header {
   height: max-content;
 
   display: grid;
-  grid-template-areas: "hdlm hdr";
-  grid-template-columns: auto max-content;
-  grid-template-rows: auto;
+  grid-template-areas: "hdl hdm hdr";
+  grid-template-columns: 1fr 2fr 1fr;
+  grid-template-rows: inherit;
 }
 
 main {
@@ -37,15 +39,31 @@ footer {
   grid-area: footer;
 }
 
-.headmidleft {
-  grid-area: hdlm;
-  line-height: 110%;
+nav {
+  grid-area: nav;
+}
+
+aside {
+  grid-area: side;
+}
+
+
+/* classes */
+.headleft {
+  grid-area: hdl;
+  line-height: 100%;
+  font-size: x-large;
+}
+
+.headmid {
+  grid-area: hdm;
+  line-height: 100%;
   font-size: xx-large;
 }
 
 .headright {
   grid-area: hdr;
-  line-height: 110%;
+  line-height: 100%;
   font-size: x-large;
 }
 
@@ -58,19 +76,128 @@ footer {
   display: inline-block;
 }
 
+.audioPlayerContainer {
+  display: inline-block;
+}
+
 .gridElement { 
   display: grid; 
   grid-template-rows: max-content max-content max-content max-content; 
   grid-template-columns: max-content max-content max-content; 
   align-items: center;
-  justify-items: center;
+}
+
+.musicGridElement { 
+  display: grid; 
+  grid-template-rows: max-content max-content max-content max-content; 
+  grid-template-columns: max-content max-content max-content; 
+  align-items: center;
+}
+
+.gridElementTwoCol { 
+  display: grid; 
+  grid-template-rows: max-content max-content; 
+  grid-template-columns: max-content max-content; 
+  align-items: center;
+}
+
+.gridElementTwoColTwoRow { 
+  display: grid; 
+  grid-template-rows: max-content max-content max-content max-content; 
+  grid-template-columns: max-content max-content; 
+  align-items: center;
 }
 
 .fas, .far {
   padding-top: 1em;
   font-size: 4em;
 }
+  
+.gridButton {
+  align-content: center;
+}
 
+.returnButton {
+  display: none;
+}
+
+.contentItem {
+  display: none;
+}
+
+.gridText {
+  font-size: larger;
+  padding-bottom: 1em;
+}
+
+
+/* these elements format the scrolling title and everything belonging to the music player */
+.playingTitle {
+  padding-top: 1em;
+  height: 8em;
+}
+
+.playingTitle div {
+  font-size: 2em;
+  height: 2em;
+}
+
+.scroll-left {
+  overflow: hidden;
+  position: relative;
+  white-space: nowrap;
+}
+.scroller {
+  position: absolute;
+  width: 100%;
+  margin: 0;
+  line-height: 100%;
+  text-align: left;
+
+  /* Starting position */
+  -moz-transform:translateX(100%);
+  -webkit-transform:translateX(100%);    
+  transform:translateX(100%);
+
+  /* Apply animation to this element */  
+  -moz-animation: scroll-left 15s linear infinite;
+  -webkit-animation: scroll-left 15s linear infinite;
+  animation: scroll-left 15s linear infinite;
+  }
+  /* Move it (define the animation) */
+  @-moz-keyframes scroll-left {
+  0%   { -moz-transform: translateX(100%); }
+  100% { -moz-transform: translateX(-100%); }
+  }
+  @-webkit-keyframes scroll-left {
+  0%   { -webkit-transform: translateX(100%); }
+  100% { -webkit-transform: translateX(-100%); }
+  }
+  @keyframes scroll-left {
+  0%   { 
+  -moz-transform: translateX(100%); /* Firefox bug fix */
+  -webkit-transform: translateX(100%); /* Firefox bug fix */
+  transform: translateX(100%);       
+  }
+  100% { 
+  -moz-transform: translateX(-100%); /* Firefox bug fix */
+  -webkit-transform: translateX(-100%); /* Firefox bug fix */
+  transform: translateX(-100%); 
+  }
+}
+
+.unselectable {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+
+
+/* element tags */
 div[type="button"] {
   border-radius: 15px;
   width: 12em;
@@ -82,14 +209,6 @@ div[type="button"] {
   background-color: rgba(255, 255, 255, 0.250);
 
   transition-duration: 0.25s; /*used for leaving the gridbutton*/
-}
-  
-.gridButton {
-  align-content: center;
-}
-
-.returnButton {
-  display: none;
 }
 
 div[type="button"]:hover {
@@ -103,16 +222,43 @@ i {
   text-align: center;
 }
 
-.contentItem {
+ul {
+  list-style-type: none;
+}
+
+/* ids */
+#time {
+  padding-top: 1em;
+}
+
+#musicPlayerContainer {
   display: none;
 }
 
-.gridText {
-  font-size: larger;
-  padding-bottom: 1em;
+#functionsCenterContainer {
+  display: none;
 }
 
-#date {
-  padding-left: 10%;
-  padding-right: 10%;
+#carDataCenterContainer {
+  display: none;
+}
+
+#songList {
+  max-height:12em;
+  overflow-y:auto;
+}
+
+#songsWrapper {
+  margin: 0px;
+}
+
+#songsWrapper li{
+    border-radius: 3px;
+    width: 100%;
+    height: 3em;
+    line-height: 3em;
+    margin-bottom: 0.5em;
+  
+    border: none;
+    background-color: rgba(255, 255, 255, 0.250);
 }

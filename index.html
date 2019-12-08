@@ -12,26 +12,36 @@
 </head>
 
 <body>
-
     <header>
-        <div class="headmidleft"><p>car entertainment</p></div>
+        <div class="headleft"></div>
+        <div class="headmid">
+            <p>car entertainment</p>
+        </div>
 
-        <div class="headright"><p id="date"></p></div>
+        <div class="headright">
+            <div id="time"></div>
+            <div id="date"></div>
+        </div>
     </header>
 
+    <aside></aside>
+    <nav>
+        <div class="returnButton" id="returnButton" type="button"><i class="far fa-arrow-alt-circle-left"></i></div>
+    </nav>
+
     <main>
-        <div class="centerGrid">
+        <div class="centerGrid" id="menuCenterContainer">
             <div class="gridContainer">
                 <div class="gridElement">
-                    <div class="gridButton" id="B1" type="button"><i class="fas fa-tachometer-alt"></i></div>
-                    <div class="gridButton" id="B2" type="button"><i class="fas fa-music"></i></div>
+                    <div class="gridButton" id="carDataButton" type="button"><i class="fas fa-tachometer-alt"></i></div>
+                    <div class="gridButton" id="musicButton" type="button"><i class="fas fa-music"></i></div>
                     <div class="gridButton" id="B3" type="button"><i class="fas fa-phone-alt"></i></div>
                     <div class="gridText">data</div>
                     <div class="gridText">music</div>
                     <div class="gridText">phone</div>
                     <div class="gridButton" id="B4" type="button"><i class="fas fa-route"></i></div>
-                    <div class="gridButton" id="B5" type="button"><i class="fas fa-bars"></i></div>
-                    <div class="gridButton" id="B6" type="button"><i class="fas fa-cog"></i></div>
+                    <div class="gridButton" id="carFunctionsButton" type="button"><i class="fas fa-bars"></i></div>
+                    <div div class="gridButton" id="B6" type="button"><i class="fas fa-cog"></i></div>
                     <div class="gridText">navigation</div>
                     <div class="gridText">functions</div>
                     <div class="gridText">settings</div>
@@ -39,32 +49,71 @@
             </div>
         </div>
 
-
-        <div class="returnButton" id="returnButton" type="button"><i class="far fa-arrow-alt-circle-left"></i></div>
-
-        <div class="contentItem" id="v1" name="view_1">element 1</div>
-        <div class="contentItem" id="v2" name="view_2">element 2</div>
         <div class="contentItem" id="v3" name="view_3">element 3</div>
         <div class="contentItem" id="v4" name="view_4">element 4</div>
-        <div class="contentItem" id="v5" name="view_5">element 5</div>
         <div class="contentItem" id="v6" name="view_6">element 6</div>
 
-        <div class="audioPlayerContainer" id="audioPlayer">
-            <audio controls="controls">
-                <source src="media/MousseT_feat._Cleah_Melodie.mp3" type="audio/mp3">
-                <source src="media/AvaMax_SweetButPsycho.mp3" type="audio/mp3">
-            </audio>
+        <div class="centerGrid" id="carDataCenterContainer">
+                <div class="gridContainer">
+                    <div class="gridElementTwoColTwoRow">
+                        <div class="gridButton" id="speed" type="button">250 km/h</div>
+                        <div class="gridButton" id="position" type="button">position</i></div>
+                        <div class="gridText">speed</div>
+                        <div class="gridText">position</div>
+                        <div class="gridButton" id="consumption" type="button">8,7 liters</div>
+                        <div class="gridButton" id="fuelremains" type="button">32 liters</i></div>
+                        <div class="gridText">consumption</div>
+                        <div class="gridText">remaining fuel</div>
+                    </div>
+                </div>
+            </div>
+
+        <div class="centerGrid" id="musicPlayerContainer">
+            <div class="audioPlayerContainer" id="playerContainer">
+
+                <audio id="audioPlayer" preload="none">
+                    <source id="audioSourceInput" src="media/MousseT_feat._Cleah_Melodie.mp3" type="audio/mp3">
+                </audio>
+
+                <div class="musicGridElement">
+                    <div div class="musicButton" id="backward" type="button"><i class="fas fa-backward"></i></div>
+                    <div div class="musicButton" id="play_pause" type="button"><i id="play_pause_symbol"
+                            class="fas fa-play"></i></div>
+                    <div div class="musicButton" id="forward" type="button"><i class="fas fa-forward"></i></div>
+                </div>
+                <div class="playingTitle scroll-left">
+                    <div id="playingTitleLabel">currently playing:</div>
+                    <div class="scroller" id="scrollingTitle"></div>
+                </div>
+
+                <div id="songList">
+                    <div>
+                        <ul id="songsWrapper" class="unselectable">
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
 
-
-
-
+        <div class="centerGrid" id="functionsCenterContainer">
+            <div class="gridContainer">
+                <div class="gridElementTwoCol">
+                    <div class="gridButton" id="windows" type="button"><i class="far fa-window-maximize"></i></div>
+                    <div class="gridButton" id="doors" type="button"><i class="fas fa-car-side"></i></div>
+                    <div class="gridText">windows</div>
+                    <div class="gridText">doors</div>
+                </div>
+            </div>
+        </div>
 
     </main>
-    <footer>
 
+    <footer>
+        <!-- no content yet -->
     </footer>
+
     <script src="script.js"></script>
+    <script src="musicplayer.js"></script>
 </body>
 
 </html>
