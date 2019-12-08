@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>title</title>
-    
+
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="fontawesome-free-5.11.2-web\fontawesome-free-5.11.2-web\css\all.css">
 
@@ -13,38 +13,57 @@
 
 <body>
 
-    <div class="pageHeader">
-        <h1>car entertainment</h1>
-    </div>
-    
+    <header>
+        <div class="headmidleft"><p>car entertainment</p></div>
 
-    <div class="gridContainer">
-        
-        <div class="gridElement">
-            <div class="gridButton" id="B1" type="button"><i class="fas fa-tachometer-alt"></i></div>
-            <div class="gridButton" id="B2" type="button"><i class="fas fa-music"></i></div>
-            <div class="gridButton" id="B3" type="button"><i class="fas fa-phone-alt"></i></div>
-            <div class="gridText">data</div>
-            <div class="gridText">music</div>
-            <div class="gridText">phone</div>
-            <div class="gridButton" id="B4" type="button"><i class="fas fa-route"></i></div>
-            <div class="gridButton" id="B5" type="button"><i class="fas fa-bars"></i></div>
-            <div class="gridButton" id="B6" type="button"><i class="fas fa-cog"></i></div>
-            <div class="gridText">navigation</div>
-            <div class="gridText">functions</div>
-            <div class="gridText">settings</div>
+        <div class="headright"><p id="date"></p></div>
+    </header>
+
+    <main>
+        <div class="centerGrid">
+            <div class="gridContainer">
+                <div class="gridElement">
+                    <div class="gridButton" id="B1" type="button"><i class="fas fa-tachometer-alt"></i></div>
+                    <div class="gridButton" id="B2" type="button"><i class="fas fa-music"></i></div>
+                    <div class="gridButton" id="B3" type="button"><i class="fas fa-phone-alt"></i></div>
+                    <div class="gridText">data</div>
+                    <div class="gridText">music</div>
+                    <div class="gridText">phone</div>
+                    <div class="gridButton" id="B4" type="button"><i class="fas fa-route"></i></div>
+                    <div class="gridButton" id="B5" type="button"><i class="fas fa-bars"></i></div>
+                    <div class="gridButton" id="B6" type="button"><i class="fas fa-cog"></i></div>
+                    <div class="gridText">navigation</div>
+                    <div class="gridText">functions</div>
+                    <div class="gridText">settings</div>
+                </div>
+            </div>
         </div>
-    </div>
 
-    <div class="returnButton" id="returnButton" type="button"><i class="far fa-arrow-alt-circle-left"></i></div>
-    
-    <div class="contentItem" id="v1" name="view_1">element 1</div>
-    <div class="contentItem" id="v2" name="view_2">element 2</div>
-    <div class="contentItem" id="v3" name="view_3">element 3</div>
-    <div class="contentItem" id="v4" name="view_4">element 4</div>
-    <div class="contentItem" id="v5" name="view_5">element 5</div>
-    <div class="contentItem" id="v6" name="view_6">element 6</div>
 
+        <div class="returnButton" id="returnButton" type="button"><i class="far fa-arrow-alt-circle-left"></i></div>
+
+        <div class="contentItem" id="v1" name="view_1">element 1</div>
+        <div class="contentItem" id="v2" name="view_2">element 2</div>
+        <div class="contentItem" id="v3" name="view_3">element 3</div>
+        <div class="contentItem" id="v4" name="view_4">element 4</div>
+        <div class="contentItem" id="v5" name="view_5">element 5</div>
+        <div class="contentItem" id="v6" name="view_6">element 6</div>
+
+        <div class="audioPlayerContainer" id="audioPlayer">
+            <audio controls="controls">
+                <source src="media/MousseT_feat._Cleah_Melodie.mp3" type="audio/mp3">
+                <source src="media/AvaMax_SweetButPsycho.mp3" type="audio/mp3">
+            </audio>
+        </div>
+
+
+
+
+
+    </main>
+    <footer>
+
+    </footer>
     <script src="script.js"></script>
 </body>
 
