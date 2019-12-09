@@ -1,3 +1,5 @@
+const MUSIC_BASE_URL = "http://192.168.0.79:5000/music";
+
 const PLAY_BTN_CLASS_STRING = "fa-play"
 const PAUSE_BTN_CLASS_STRING = "fa-pause"
 
@@ -21,6 +23,8 @@ var musicSources = [
 ];
 
 window.onload = function () {
+
+    fetchMusic();
 
     for (title of titles) {
         var newElement = document.createElement("li");
@@ -114,3 +118,11 @@ musicPlayer.onended = function() {
    activeTitle = titles[activeTitleNumber];
    togglePlayButton(activeTitle, activeSource, true);
 }; 
+
+function fetchMusic() {
+    fetch(MUSIC_BASE_URL).then(function (response) {
+        response.text().then(function (text) {
+            console.log(text);
+        });
+    });
+}

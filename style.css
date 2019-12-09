@@ -73,11 +73,11 @@ aside {
 }
 
 .gridContainer {
-  display: inline-block;
+
 }
 
 .audioPlayerContainer {
-  display: inline-block;
+
 }
 
 .gridElement { 
@@ -211,6 +211,7 @@ div[type="button"] {
   transition-duration: 0.25s; /*used for leaving the gridbutton*/
 }
 
+/* unusable on tablet */
 div[type="button"]:hover {
   background-color: rgba(255, 255, 255, 0.500);
   color:black;
@@ -240,6 +241,10 @@ ul {
 }
 
 #carDataCenterContainer {
+  display: none;
+}
+
+#windowAccessCenterContainer {
   display: none;
 }
 
