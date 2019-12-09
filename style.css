@@ -15,7 +15,7 @@ body {
   display: grid;
   grid-template-areas: "header header header" "nav main side" "footer footer footer"; /*"header" "main" "footer";*/
   grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: max-content auto auto;
+  grid-template-rows: 20vh auto auto;
 
 }
   
@@ -257,6 +257,10 @@ ul {
   margin: 0px;
 }
 
+.trackIsPlaying{
+  background-color: rgba(255, 255, 255, 0.110) !important;
+}
+
 #songsWrapper li{
     border-radius: 3px;
     width: 100%;
@@ -267,3 +271,5 @@ ul {
     border: none;
     background-color: rgba(255, 255, 255, 0.250);
 }
+
+

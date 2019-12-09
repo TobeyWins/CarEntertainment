@@ -1,8 +1,9 @@
 //header clock element and functions
-
-
 //load clock when content is loaded
-window.onload = showUpdateClock;
+window.onload = function () {
+    showUpdateClock();
+    fetchMusic();
+}
 
 function setupClock() {
     var refreshRateMs = 1000;
@@ -102,8 +103,10 @@ document.getElementById("returnButton").addEventListener("click", function () { 
 
 
 //locking and windows
-const ACTION_BASE_URL = "http://192.168.0.79:5000/action/";
-const WINDOW_BASE_URL = "http://192.168.0.79:5000/window/";
+const PI_IP = "192.168.178.56" // mobs lab "192.168.0.79"
+const ACTION_BASE_URL = "http://" + PI_IP + ":5000/action/";
+const WINDOW_BASE_URL = "http://" + PI_IP + ":5000/window/";
+
 const LOCK_BTN_CLASS_STRING = "fa-lock"
 const UNLOCK_BTN_CLASS_STRING = "fa-unlock"
 const WINDOW_UP_BTN_CLASS_STRING = "fa-window-maximize"
@@ -157,60 +160,55 @@ function setLockSymbol(action) {
 function onWindowClick(id) {
     switch (id) {
         case "openAllWindow":
-            for (let i = 0; i < isWindowOpen.length; i++) { 
-                isWindowOpen[i] = true;
+            var elements = document.getElementsByClassName("editableWindowButton");
+            for (let i = 0; i < elements.length; i++) {
+                if (elements[i].classList.contains(WINDOW_UP_BTN_CLASS_STRING)) {
+                    elements[i].classList.remove(WINDOW_UP_BTN_CLASS_STRING);
+                    elements[i].classList.add(WINDOW_DOWN_BTN_CLASS_STRING);
+                }
             }
-            window_up_down(isWindowOpen[0]);
+
+            window_up_down(true);
             break;
+
         case "closeAllWindow":
-            for (let i = 0; i < isWindowOpen.length; i++) {
-                isWindowOpen[i] = false;
+            var elements = document.getElementsByClassName("editableWindowButton");
+            for (let i = 0; i < elements.length; i++) {
+                if (elements[i].classList.contains(WINDOW_DOWN_BTN_CLASS_STRING)) {
+                    elements[i].classList.remove(WINDOW_DOWN_BTN_CLASS_STRING);
+                    elements[i].classList.add(WINDOW_UP_BTN_CLASS_STRING);         
+                }
             }
-            window_up_down(isWindowOpen[0]);
+
+            window_up_down(false);
             break;
+
         case "frontLeft":
-            isWindowOpen[0] = !isWindowOpen[0];
-            window_up_down(isWindowOpen[0]);
-            break;
         case "frontRight":
-            isWindowOpen[1] = !isWindowOpen[1];
-            window_up_down(isWindowOpen[1]);
-            break;
         case "backLeft":
-            isWindowOpen[2] = !isWindowOpen[2];
-            window_up_down(isWindowOpen[2]);
-            break;
         case "backRight":
-            isWindowOpen[3] = !isWindowOpen[3];
-            window_up_down(isWindowOpen[3]);
+            setWindowSymbol(id + "Symbol");
+            break;
+
+        default:
             break;
     }
-
-    setWindowSymbols();
 }
 
-function setWindowSymbols() {
+function setWindowSymbol(id) {
 
-    let selectedElementIdx = 0;
+    var element = document.getElementById(id);
 
-    for (element of isWindowOpen) {
-        
-        var lockSymbolClassList = document.getElementById(WINDOW_SYMBOLS_BUTTON_MAPPING[selectedElementIdx]).classList;
-        
-        if (element === true) {
-            if (lockSymbolClassList.contains(WINDOW_UP_BTN_CLASS_STRING)) {
-                lockSymbolClassList.remove(WINDOW_UP_BTN_CLASS_STRING);
-                lockSymbolClassList.add(WINDOW_DOWN_BTN_CLASS_STRING);
-            }
-        }
-        else {
-            if (lockSymbolClassList.contains(WINDOW_DOWN_BTN_CLASS_STRING)) {
-                lockSymbolClassList.remove(WINDOW_DOWN_BTN_CLASS_STRING);
-                lockSymbolClassList.add(WINDOW_UP_BTN_CLASS_STRING);
-            }
-        }
-
-        selectedElementIdx++;
+    if (element.classList.contains(WINDOW_DOWN_BTN_CLASS_STRING)) {
+        element.classList.remove(WINDOW_DOWN_BTN_CLASS_STRING);
+        element.classList.add(WINDOW_UP_BTN_CLASS_STRING);
+        window_up_down(true);
+    } else if (element.classList.contains(WINDOW_UP_BTN_CLASS_STRING)) {
+        element.classList.remove(WINDOW_UP_BTN_CLASS_STRING);
+        element.classList.add(WINDOW_DOWN_BTN_CLASS_STRING);
+        window_up_down(false);
+    } else {
+        //do nothing
     }
 }
 
@@ -230,4 +228,197 @@ function window_up_down(actionInput) {
             console.log(text);
         });
     });
+}
+
+
+////////////////////////////////////////////////////////////////////////////////////////////
+// Music player content
+const MUSIC_BASE_URL = "http://" + PI_IP + ":5000/music";
+
+const PLAY_BTN_CLASS_STRING = "fa-play"
+const PAUSE_BTN_CLASS_STRING = "fa-pause"
+const TRACK_IS_PLAYING_CLASS = "trackIsPlaying"
+const MUSIC_IS_PLAYING_CLASS = "isPlaying"
+
+var isPlaying = false;
+var musicPlayer = document.getElementById("audioPlayer");
+
+var tracks;
+var activeTrack = null;
+
+function fetchMusic() {
+    fetch(MUSIC_BASE_URL).then(function (response) {
+        response.text().then(function (text) {
+            tracks = JSON.parse(text);
+            console.log(text);
+            createMusicPlayerItems();
+        });
+    });
+}
+
+function createMusicPlayerItems() {
+    for (track of tracks) {
+        var newElement = document.createElement("li");
+        newElement.setAttribute("class", "");
+        newElement.innerHTML = track.artist + " - " + track.title;
+
+        document.getElementById("songsWrapper").appendChild(newElement);
+    }
+
+    if(activeTrack == null) {
+        activeTrack = tracks[0];
+        activeTitleNumber = 0;
+
+        var listElements = document.getElementById("songsWrapper").childNodes;
+        listElements[0].classList.add(TRACK_IS_PLAYING_CLASS);
+    }
+
+    var newElement = document.createElement("source");
+    newElement.setAttribute("id", "audioSourceInput");
+    newElement.setAttribute("type", "audio/mp3");
+    newElement.setAttribute("src", tracks[0].path);
+
+    document.getElementById("audioPlayer").appendChild(newElement);
+    musicPlayer.load();
+}
+
+document.getElementById("backward").addEventListener("click", function () {
+
+    var listElements = document.getElementById("songsWrapper").childNodes;
+
+    if (listElements[activeTitleNumber].classList.contains(TRACK_IS_PLAYING_CLASS)) {
+        listElements[activeTitleNumber].classList.remove(TRACK_IS_PLAYING_CLASS)
+
+        if ((activeTitleNumber - 1) > 0) {
+            activeTitleNumber--;
+        }
+        else {
+            activeTitleNumber = 0;
+        }
+    } else {
+        console.warn("mismatching active title number detected, resetting");
+        activeTitleNumber = 0;
+        activeTrack = tracks[0];
+    }
+
+    activeTrack = tracks[activeTitleNumber];
+
+    updateActiveTrackListElement()
+    playTrack(activeTrack, true)
+});
+
+
+document.getElementById("forward").addEventListener("click", function () {
+    var listElements = document.getElementById("songsWrapper").childNodes;
+
+    if (listElements[activeTitleNumber].classList.contains(TRACK_IS_PLAYING_CLASS)) {
+        listElements[activeTitleNumber].classList.remove(TRACK_IS_PLAYING_CLASS)
+
+        if ((activeTitleNumber + 1) < listElements.length) {
+            activeTitleNumber++;
+        }
+        else {
+            activeTitleNumber = (listElements.length - 1);
+        }
+    } else {
+        console.warn("mismatching active title number detected, resetting");
+        activeTitleNumber = 0;
+        activeTrack = tracks[0];
+    }
+
+    activeTrack = tracks[activeTitleNumber];
+
+    updateActiveTrackListElement()
+    playTrack(activeTrack, true)
+});
+
+
+document.getElementById("play_pause").addEventListener("click", function () { playTrack(activeTrack, false) });
+function playTrack(track, forcePlay) {
+
+    if(track == null) {
+        track = tracks[0];
+
+        var listElements = document.getElementById("songsWrapper").childNodes;
+        listElements[0].classList.add(TRACK_IS_PLAYING_CLASS);
+    }
+
+    var playPauseClassList = document.getElementById("play_pause_symbol").classList;
+
+    if (forcePlay || playPauseClassList.contains(PLAY_BTN_CLASS_STRING)) {
+        playPauseClassList.remove(PLAY_BTN_CLASS_STRING);
+        playPauseClassList.add(PAUSE_BTN_CLASS_STRING);
+        playPauseClassList.add(MUSIC_IS_PLAYING_CLASS);
+
+        document.getElementById("scrollingTitle").innerHTML = track.artist + " - " + track.title; 
+        document.getElementById("audioSourceInput").setAttribute("src", track.path);
+        musicPlayer.load();
+    }
+    else {
+        playPauseClassList.remove(PAUSE_BTN_CLASS_STRING);
+        playPauseClassList.add(PLAY_BTN_CLASS_STRING);
+        playPauseClassList.remove(MUSIC_IS_PLAYING_CLASS);
+
+        document.getElementById("scrollingTitle").innerHTML = ""; 
+    }
+
+    if(playPauseClassList.contains(MUSIC_IS_PLAYING_CLASS)) {
+        musicPlayer.play();
+    }
+    else {
+        musicPlayer.pause();
+    }
+}
+
+
+var ulWrapper = document.getElementById('songsWrapper');
+//not compatible with IE
+ulWrapper.onclick = function(event) {
+    var target = event.target;
+
+    let titleId = 0;
+
+    for (track of tracks) {
+        if(target.innerHTML === (track.artist + " - " + track.title)) {
+            break;
+        }
+
+        titleId++;
+    }
+
+    activeTitleNumber = titleId;
+    activeTrack = tracks[activeTitleNumber];
+    updateActiveTrackListElement();
+    playTrack(activeTrack, true);
+};
+
+musicPlayer.onended = function () {
+
+    if(activeTitleNumber == null) {
+        activeTitleNumber = 0;
+    }
+    
+    if (activeTitleNumber < (tracks.length - 1)) {
+        activeTitleNumber++;
+    }
+    else {
+        activeTitleNumber = 0;
+    }
+    
+    activeTrack = tracks[activeTitleNumber];
+
+    updateActiveTrackListElement();
+    playTrack(activeTrack, true);
+}; 
+
+function updateActiveTrackListElement() {
+    var listElements = document.getElementById("songsWrapper").childNodes;
+    
+    for(let i = 0; i < listElements.length; i++)
+    {
+        if(listElements[i].classList.contains(TRACK_IS_PLAYING_CLASS)) {
+            listElements[i].classList.remove(TRACK_IS_PLAYING_CLASS);
+        }
+    }
+    listElements[activeTitleNumber].classList.add(TRACK_IS_PLAYING_CLASS);
 }
