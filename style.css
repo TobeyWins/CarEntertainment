@@ -47,6 +47,35 @@ aside {
   grid-area: side;
 }
 
+progress[value] {
+  /* Reset the default appearance */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  border: none;
+  background-color: rgba(255, 255, 255, 0.10);
+  border-radius: 10px;
+
+  width: 100%;
+  height: 2em;
+}
+
+/* firefox */
+progress[value]::-moz-progress-bar {
+  background-color: rgba(255, 255, 255, 0.4);
+  border-radius: 10px; 
+}
+
+/*chrome and safari */
+progress[value]::-webkit-progress-bar {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 10px; 
+}
+
+progress::-webkit-progress-value {
+  background-color: rgba(255, 255, 255, 0.4);
+  border-radius: 10px; 
+}
 
 /* classes */
 .headleft {
@@ -97,6 +126,13 @@ aside {
 .gridElementTwoCol { 
   display: grid; 
   grid-template-rows: max-content max-content; 
+  grid-template-columns: max-content max-content; 
+  align-items: center;
+}
+
+.gridElementTwoColOneRow { 
+  display: grid; 
+  grid-template-rows: max-content; 
   grid-template-columns: max-content max-content; 
   align-items: center;
 }
@@ -195,7 +231,17 @@ aside {
   user-select: none;
 }
 
+.progressBarContainer {
+  padding-bottom: 1em;
+}
 
+.trackIsPlaying{
+  background-color: rgba(255, 255, 255, 0.110) !important;
+}
+
+.dataDisplay {
+  font-size: xx-large;
+}
 
 /* element tags */
 div[type="button"] {
@@ -203,6 +249,19 @@ div[type="button"] {
   width: 12em;
   height: 12em;
   line-height: 12em;
+  margin: 0.5em;
+
+  border: none;
+  background-color: rgba(255, 255, 255, 0.250);
+
+  transition-duration: 0.25s; /*used for leaving the gridbutton*/
+}
+
+div[type="phoneButton"] {
+  border-radius: 10px;
+  width: 5em;
+  height: 5em;
+  line-height: 5em;
   margin: 0.5em;
 
   border: none;
@@ -248,6 +307,10 @@ ul {
   display: none;
 }
 
+#phoneCenterContainer{
+  display: none;
+}
+
 #songList {
   max-height:12em;
   overflow-y:auto;
@@ -255,10 +318,7 @@ ul {
 
 #songsWrapper {
   margin: 0px;
-}
-
-.trackIsPlaying{
-  background-color: rgba(255, 255, 255, 0.110) !important;
+  padding: 0px;
 }
 
 #songsWrapper li{

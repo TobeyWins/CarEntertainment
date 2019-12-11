@@ -17,7 +17,7 @@
         <div class="headmid">
             <p>car entertainment</p>
         </div>
-    
+
         <div class="headright">
             <div id="time">qweqwe</div>
             <div id="date">qweqwe</div>
@@ -35,7 +35,7 @@
                 <div class="gridElement">
                     <div class="gridButton" id="carDataButton" type="button"><i class="fas fa-tachometer-alt"></i></div>
                     <div class="gridButton" id="musicButton" type="button"><i class="fas fa-music"></i></div>
-                    <div class="gridButton" id="B3" type="button"><i class="fas fa-phone-alt"></i></div>
+                    <div class="gridButton" id="phoneButton" type="button"><i class="fas fa-phone-alt"></i></div>
                     <div class="gridText">data</div>
                     <div class="gridText">music</div>
                     <div class="gridText">phone</div>
@@ -49,26 +49,30 @@
             </div>
         </div>
 
-        <div class="contentItem" id="v3" name="view_3">element 3</div>
-        <div class="contentItem" id="v4" name="view_4">element 4</div>
-        <div class="contentItem" id="v6" name="view_6">element 6</div>
-
         <div class="centerGrid" id="carDataCenterContainer">
-                <div class="gridContainer">
-                    <div class="gridElementTwoColTwoRow">
-                        <div class="gridButton" id="speed" type="button">250 km/h</div>
-                        <div class="gridButton" id="position" type="button">position</i></div>
-                        <div class="gridText">speed</div>
-                        <div class="gridText">position</div>
-                        <div class="gridButton" id="consumption" type="button">8,7 liters</div>
-                        <div class="gridButton" id="fuelremains" type="button">32 liters</i></div>
-                        <div class="gridText">consumption</div>
-                        <div class="gridText">remaining fuel</div>
+            <div class="gridContainer">
+                <div class="gridElementTwoColTwoRow">
+                    <div class="gridButton" type="button">
+                        <div class="dataDisplay" id="speed"></div>
                     </div>
+                    <div class="gridButton" type="button">
+                        <div class="dataDisplay" id="temp"> </div>
+                    </div>
+                    <div class="gridText">speed</div>
+                    <div class="gridText">temperature</div>
+                    <div class="gridButton" type="button">
+                        <div class="dataDisplay" id="consumption"></div>
+                    </div>
+                    <div class="gridButton" type="button">
+                        <div class="dataDisplay" id="fuelremains"></div>
+                    </div>
+                    <div class="gridText">consumption</div>
+                    <div class="gridText">remaining fuel</div>
                 </div>
             </div>
+        </div>
 
-        <div class="centerGrid" id="musicPlayerContainer">
+        <div class="centerGrid  unselectable" id="musicPlayerContainer">
             <div class="audioPlayerContainer" id="playerContainer">
 
                 <audio id="audioPlayer" preload="none">
@@ -77,14 +81,17 @@
 
                 <div class="musicGridElement">
                     <div div class="musicButton" id="backward" type="button"><i class="fas fa-backward"></i></div>
-                    <div div class="musicButton" id="play_pause" type="button"><i id="play_pause_symbol" class="fas fa-play"></i></div>
+                    <div div class="musicButton" id="play_pause" type="button"><i id="play_pause_symbol"
+                            class="fas fa-play"></i></div>
                     <div div class="musicButton" id="forward" type="button"><i class="fas fa-forward"></i></div>
                 </div>
                 <div class="playingTitle scroll-left">
                     <div id="playingTitleLabel">currently playing:</div>
                     <div class="scroller" id="scrollingTitle"></div>
                 </div>
-
+                <div class="progressBarContainer">
+                    <progress id="progressBar" max="100" value="0"></progress>
+                </div>
                 <div id="songList">
                     <div>
                         <ul id="songsWrapper" class="unselectable"></ul>
@@ -92,6 +99,34 @@
                 </div>
             </div>
         </div>
+
+        <div class="centerGrid" id="phoneCenterContainer">
+            <div id="dialPanel">012344558877</div>
+            <div class="gridContainer">
+                <div class="gridElementTwoColOneRow">
+                    <div class="gridButton" id="call" type="phoneButton">call</i></div>
+                    <div class="gridButton" id="stop" type="phoneButton">stop</i></div>
+                </div>
+            </div>
+            <div class="gridContainer">
+                <div class="gridElement">
+                    <div class="gridButton" type="phoneButton">7</div>
+                    <div class="gridButton" type="phoneButton">8</div>
+                    <div class="gridButton" type="phoneButton">9</div>
+                    <div class="gridButton" type="phoneButton">4</div>
+                    <div class="gridButton" type="phoneButton">5</div>
+                    <div class="gridButton" type="phoneButton">6</div>
+                    <div class="gridButton" type="phoneButton">1</div>
+                    <div class="gridButton" type="phoneButton">2</div>
+                    <div class="gridButton" type="phoneButton">3</div>
+                    <div class="gridButton" type="phoneButton">0</div>
+                    <div class="gridButton" type="phoneButton">*</div>
+                    <div class="gridButton" type="phoneButton">#</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="contentItem" id="v4" name="view_4">map</div>
 
         <div class="centerGrid" id="functionsCenterContainer">
             <div class="gridContainer">
@@ -107,21 +142,29 @@
         <div class="centerGrid" id="windowAccessCenterContainer">
             <div class="gridContainer">
                 <div class="gridElement">
-                    <div class="gridButton" id="openAllWindow" type="button"><i class="fas fa-window-minimize"></i></div>
-                    <div class="gridButton" id="frontLeft" type="button"><i id="frontLeftSymbol" class="editableWindowButton fas fa-window-maximize"></i></div>
-                    <div class="gridButton" id="frontRight" type="button"><i id="frontRightSymbol" class="editableWindowButton fas fa-window-maximize"></i></div>
+                    <div class="gridButton" id="openAllWindow" type="button"><i class="fas fa-window-minimize"></i>
+                    </div>
+                    <div class="gridButton" id="frontLeft" type="button"><i id="frontLeftSymbol"
+                            class="editableWindowButton fas fa-window-maximize"></i></div>
+                    <div class="gridButton" id="frontRight" type="button"><i id="frontRightSymbol"
+                            class="editableWindowButton fas fa-window-maximize"></i></div>
                     <div class="gridText">open all</div>
                     <div class="gridText">front left</div>
                     <div class="gridText">front right</div>
-                    <div class="gridButton" id="closeAllWindow" type="button"><i class="fas fa-window-maximize"></i></div>
-                    <div class="gridButton" id="backLeft" type="button"><i id="backLeftSymbol" class="editableWindowButton fas fa-window-maximize"></i></div>
-                    <div class="gridButton" id="backRight" type="button"><i id="backRightSymbol" class="editableWindowButton fas fa-window-maximize"></i></div>
+                    <div class="gridButton" id="closeAllWindow" type="button"><i class="fas fa-window-maximize"></i>
+                    </div>
+                    <div class="gridButton" id="backLeft" type="button"><i id="backLeftSymbol"
+                            class="editableWindowButton fas fa-window-maximize"></i></div>
+                    <div class="gridButton" id="backRight" type="button"><i id="backRightSymbol"
+                            class="editableWindowButton fas fa-window-maximize"></i></div>
                     <div class="gridText">close all</div>
                     <div class="gridText">back left</div>
                     <div class="gridText">back right</div>
                 </div>
             </div>
         </div>
+
+        <div class="contentItem" id="v6" name="view_6">settings</div>
 
     </main>
 

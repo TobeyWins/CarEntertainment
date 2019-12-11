@@ -14,7 +14,6 @@ cors = CORS(app, resources={
 # Allow only specific IP for CORS
 # cors = CORS(app, resources={r"/status": {"origins": "http://192.168.0.204"}, r"/action/*": {"origins": "http://192.168.0.204"}})
 
-
 @app.route('/status')
 def status():
 
@@ -33,6 +32,20 @@ def status():
     if speed < 0:
         speed = 0
 
+
+    fuelFile = open("remainingFuel.txt", "r")
+    remainingFuel = float(fuelFile.read())
+
+    remainingFuel -= (consumption * 0.05)
+
+    if remainingFuel <= 0:
+        speed = 0
+        remainingFuel = 60
+
+    fuelFile = open("remainingFuel.txt", "w")
+    fuelFile.write(str(remainingFuel))
+    fuelFile.close()
+
     f = open("speed.txt", "w")
     f.write(str(speed))
     f.close()
@@ -42,22 +55,22 @@ def status():
         temp=sense.get_temperature(),
         humidity=sense.get_humidity(),
         consumption=consumption,
+        remainingFuel=remainingFuel,
         speed=speed
     )
-
 
 @app.route('/music')
 def music():
 
     music = [{
         'title': 'Melodie',
-        'artist': 'TMousse T. feat. Cleah',
-        'path': 'MousseT_feat._Cleah_Melodie.mp3'
+        'artist': 'Mousse T. feat. Cleah',
+        'path': 'media/MousseT_feat._Cleah_Melodie.mp3'
     },
     {
         'title': 'Sweet but Psycho',
         'artist': 'Ava Max',
-        'path': 'Ava Max - Sweet but Psycho.mp3'
+        'path': 'media/Ava Max - Sweet but Psycho.mp3'
     },
     {
         'title': 'Graveyard',
@@ -73,6 +86,31 @@ def music():
         'title': 'Around The World',
         'artist': 'Daft Punk',
         'path': 'media/Daft Punk - Around The World.mp3'
+    },
+    {
+        'title': 'All the small things',
+        'artist': 'Blink-182',
+        'path': 'media/blink-182 - All The Small Things.mp3'
+    },
+    {
+        'title': 'Butterfly',
+        'artist': 'Crazy Town',
+        'path': 'media/Crazy Town - Butterfly.mp3'
+    },
+    {
+        'title': 'Jenny from the Block',
+        'artist': 'Jennifer Lopez',
+        'path': 'media/Jennifer Lopez - Jenny from the Block.mp3'
+    },
+    {
+        'title': 'Blinding Lights',
+        'artist': 'The Weeknd',
+        'path': 'media/The Weeknd - Blinding Lights.mp3'
+    },
+    {
+        'title': 'Miami',
+        'artist': 'Will Smith',
+        'path': 'media/Will Smith - Miami.mp3'
     }]
         
     return jsonify(music)

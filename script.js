@@ -3,6 +3,7 @@
 window.onload = function () {
     showUpdateClock();
     fetchMusic();
+    fetchCarData();
 }
 
 function setupClock() {
@@ -81,9 +82,9 @@ function showGridButtons() {
     menuContainer.style.display='block';   
 }
 
-document.getElementById("carDataButton").addEventListener("click", function () { displaySelectedElement("carDataCenterContainer") });
+document.getElementById("carDataButton").addEventListener("click", function () { displaySelectedElement("carDataCenterContainer"); updateCarDataItems(); });
 document.getElementById("musicButton").addEventListener("click", function () { displaySelectedElement("musicPlayerContainer") });
-document.getElementById("B3").addEventListener("click", function () { displaySelectedElement("v3") });
+document.getElementById("phoneButton").addEventListener("click", function () { displaySelectedElement("phoneCenterContainer") });
 document.getElementById("B4").addEventListener("click", function () { displaySelectedElement("v4") });
 document.getElementById("carFunctionsButton").addEventListener("click", function () { displaySelectedElement("functionsCenterContainer") });
 document.getElementById("B6").addEventListener("click", function () { displaySelectedElement("v6") });
@@ -114,6 +115,9 @@ const WINDOW_DOWN_BTN_CLASS_STRING = "fa-window-minimize"
 const WINDOW_SYMBOLS_BUTTON_MAPPING = ["frontLeftSymbol", "frontRightSymbol", "backLeftSymbol", "backRightSymbol"]
 var isWindowOpen = [false, false, false, false];
 var isLocked = true;
+
+const WINDOW_DOWN = true;
+const WINDOW_UP = false;
 
 function lock_unlock() {
 
@@ -168,7 +172,7 @@ function onWindowClick(id) {
                 }
             }
 
-            window_up_down(true);
+            window_up_down(WINDOW_DOWN);
             break;
 
         case "closeAllWindow":
@@ -180,7 +184,7 @@ function onWindowClick(id) {
                 }
             }
 
-            window_up_down(false);
+            window_up_down(WINDOW_UP);
             break;
 
         case "frontLeft":
@@ -202,11 +206,11 @@ function setWindowSymbol(id) {
     if (element.classList.contains(WINDOW_DOWN_BTN_CLASS_STRING)) {
         element.classList.remove(WINDOW_DOWN_BTN_CLASS_STRING);
         element.classList.add(WINDOW_UP_BTN_CLASS_STRING);
-        window_up_down(true);
+        window_up_down(WINDOW_UP);
     } else if (element.classList.contains(WINDOW_UP_BTN_CLASS_STRING)) {
         element.classList.remove(WINDOW_UP_BTN_CLASS_STRING);
         element.classList.add(WINDOW_DOWN_BTN_CLASS_STRING);
-        window_up_down(false);
+        window_up_down(WINDOW_DOWN);
     } else {
         //do nothing
     }
@@ -240,8 +244,11 @@ const PAUSE_BTN_CLASS_STRING = "fa-pause"
 const TRACK_IS_PLAYING_CLASS = "trackIsPlaying"
 const MUSIC_IS_PLAYING_CLASS = "isPlaying"
 
+var emmittedByButton = false;
+
 var isPlaying = false;
 var musicPlayer = document.getElementById("audioPlayer");
+musicPlayer.ontimeupdate = function() { updateProgressbar(); };
 
 var tracks;
 var activeTrack = null;
@@ -328,6 +335,8 @@ document.getElementById("forward").addEventListener("click", function () {
 
     activeTrack = tracks[activeTitleNumber];
 
+    emmittedByButton = true;
+
     updateActiveTrackListElement()
     playTrack(activeTrack, true)
 });
@@ -351,8 +360,12 @@ function playTrack(track, forcePlay) {
         playPauseClassList.add(MUSIC_IS_PLAYING_CLASS);
 
         document.getElementById("scrollingTitle").innerHTML = track.artist + " - " + track.title; 
-        document.getElementById("audioSourceInput").setAttribute("src", track.path);
-        musicPlayer.load();
+        
+        //just reload if track is not already loaded
+        if(document.getElementById("audioSourceInput").getAttribute("src") != track.path) {
+            document.getElementById("audioSourceInput").setAttribute("src", track.path);
+            musicPlayer.load();
+        }
     }
     else {
         playPauseClassList.remove(PAUSE_BTN_CLASS_STRING);
@@ -421,4 +434,61 @@ function updateActiveTrackListElement() {
         }
     }
     listElements[activeTitleNumber].classList.add(TRACK_IS_PLAYING_CLASS);
+}
+
+document.getElementById("progressBar").addEventListener("click", function (event) {
+    var x = event.pageX - this.offsetLeft, 
+        y = event.pageY - this.offsetTop, 
+        clickedValue = x * this.max / this.offsetWidth;
+
+        musicPlayer.currentTime = ((musicPlayer.duration / 100) * clickedValue);
+    });
+
+function updateProgressbar() {
+
+    var progressValue = ((musicPlayer.currentTime / musicPlayer.duration)  * 100);
+
+    if(isNaN(progressValue)) {
+        progressValue = 0;
+    }
+
+    document.getElementById("progressBar").setAttribute("value", progressValue.toString());
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////
+// Car Data content
+
+const CAR_DATA_BASE_URL = "http://" + PI_IP + ":5000/status";
+
+var carData;
+
+function fetchCarData() {
+    fetch(CAR_DATA_BASE_URL).then(function (response) {
+        response.text().then(function (text) {
+            carData = JSON.parse(text);
+            //console.log(text);
+        });
+    });
+}
+
+var carDataContainer = document.getElementById("carDataCenterContainer");
+function updateCarDataItems() {
+
+    if(carDataContainer.style.display != 'none') {
+        fetchCarData();
+        setupUpdateTimer();
+
+        document.getElementById("speed").innerText = carData.speed;
+        document.getElementById("temp").innerText = carData.temp.toFixed(2);
+        document.getElementById("consumption").innerText = carData.consumption.toFixed(2);
+        document.getElementById("fuelremains").innerText = carData.remainingFuel.toFixed(2);
+    }
+    else {
+        console.log("ended cardata update");
+    }
+}
+
+function setupUpdateTimer() {
+    var refreshRateMs = 1000;
+    mytime = setTimeout("updateCarDataItems()", refreshRateMs);
 }
