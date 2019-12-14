@@ -14,7 +14,7 @@ body {
   
   display: grid;
   grid-template-areas: "header header header" "nav main side" "footer footer footer"; /*"header" "main" "footer";*/
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 20% auto 20%;
   grid-template-rows: auto auto auto;
 
 }
@@ -310,6 +310,12 @@ ul {
 #phoneCenterContainer{
   display: none;
 }
+
+
+#mapContainer {
+  display: none;
+}
+
 
 #songList {
   max-height:12em;

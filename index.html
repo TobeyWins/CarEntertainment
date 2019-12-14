@@ -8,6 +8,10 @@
 
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="fontawesome-free-5.11.2-web\fontawesome-free-5.11.2-web\css\all.css">
+    <link rel="stylesheet" type="text/css" href="map.css">
+
+    <!-- remove this-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.1.1/css/ol.css" type="text/css">
 
 </head>
 
@@ -39,7 +43,7 @@
                     <div class="gridText">data</div>
                     <div class="gridText">music</div>
                     <div class="gridText">phone</div>
-                    <div class="gridButton" id="B4" type="button"><i class="fas fa-route"></i></div>
+                    <div class="gridButton" id="mapButton" type="button"><i class="fas fa-route"></i></div>
                     <div class="gridButton" id="carFunctionsButton" type="button"><i class="fas fa-bars"></i></div>
                     <div class="gridButton" id="B6" type="button"><i class="fas fa-cog"></i></div>
                     <div class="gridText">navigation</div>
@@ -126,7 +130,16 @@
             </div>
         </div>
 
-        <div class="contentItem" id="v4" name="view_4">map</div>
+        <div class="centerGrid" id="mapContainer">
+            <div id="mapHeader">
+                <div id="mapContent">Karte (Testversion)</div>
+                <div id="osm">© <a href="http://www.openstreetmap.org">OpenStreetMap</a>
+                  und <a href="http://www.openstreetmap.org/copyright">Mitwirkende</a>,
+                  <a href="http://creativecommons.org/licenses/by-sa/2.0/deed.de">CC-BY-SA</a>
+                </div>
+               </div>
+            <div id="map" class="map"></div>
+        </div>
 
         <div class="centerGrid" id="functionsCenterContainer">
             <div class="gridContainer">
@@ -172,7 +185,23 @@
         <!-- no content yet -->
     </footer>
 
-    <script src="script.js"></script>
+
+    <!-- open street map content-->
+   
+    <!--<script src="https://cdn.rawgit.com/openlayers/openlayers.github.io/master/en/v6.1.1/build/ol.js"></script>-->
+
+    <!-- remove this-->
+    <!--<script type="text/javascript" src="http://www.openstreetmap.org/openlayers/OpenStreetMap.js"></script> -->
+    <!--<script type="text/javascript" src="http://www.openlayers.org/api/OpenLayers.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.1.1/build/ol.js"></script>
+
+
+    <script type="text/javascript" src="common.js"></script>
+    <script type="text/javascript" src="script.js"></script>
+    <script type="text/javascript" src="musicPlayer.js"></script>
+    <script type="text/javascript" src="map.js"></script>
+
+    
 </body>
 
 </html>
