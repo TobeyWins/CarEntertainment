@@ -98,11 +98,11 @@ progress::-webkit-progress-value {
 
 .centerGrid {
   width: 100%;
-  text-align: center;
+  text-align: center;  /* centers gridContainer which is inline block */
 }
 
 .gridContainer {
-
+  display: inline-block;  /* used to center all contained content */
 }
 
 .audioPlayerContainer {
@@ -114,6 +114,7 @@ progress::-webkit-progress-value {
   grid-template-rows: max-content max-content max-content max-content; 
   grid-template-columns: max-content max-content max-content; 
   align-items: center;
+  text-align: center;
 }
 
 .musicGridElement { 
