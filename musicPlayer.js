@@ -145,7 +145,6 @@ function playTrack(track, forcePlay) {
     }
 }
 
-
 var ulWrapper = document.getElementById('songsWrapper');
 //not compatible with IE
 ulWrapper.onclick = function(event) {

@@ -1,22 +1,33 @@
 var map;
 
+var position;
+
 var pointCoords = [9.3649741, 48.6823006];
 var transformedPointCoords = ol.proj.fromLonLat(pointCoords);
 var point = new ol.geom.Point(transformedPointCoords, 'XY');
 
+function fetchPosition() {
+  fetch(MAP_BASE_URL).then(function (response) {
+      response.text().then(function (text) {
+          position = JSON.parse(text);
+          console.log(text);
+          changepos();
+      });
+  });
+}
+
 function changepos() {
-    pointCoords[0]++;
-    pointCoords[1]++;
+    pointCoords[0] += 0.0001; //= position.lat;
+    pointCoords[1] += 0.0001; //= position.long;
 
     transformedPointCoords = ol.proj.fromLonLat(pointCoords);
-    iconFeature.setGeometry( new ol.geom.Point(transformedPointCoords, 'XY'));
+    newMapPosition = new ol.geom.Point(transformedPointCoords, 'XY')
+    iconFeature.setGeometry(newMapPosition);
 
-    //var coordinate = iconFeature.getGeometry().translate(10,10);
-    //var coordinate = feature.getGeometry().getCoordinates();
-    //move coordinates some distance
-    //ol.coordinate.add(coordinate, 10, 10);
-    //use setGeometry to move it   
-    //iconFeature.setGeometry(point);
+    if(map)
+    {
+      map.getView().setCenter(ol.proj.fromLonLat(pointCoords));
+    }
 }
 
 var iconFeature = new ol.Feature({
@@ -26,9 +37,6 @@ var iconFeature = new ol.Feature({
   
   var iconStyle = new ol.style.Style({
     image: new ol.style.Icon({
-      //anchor: [0.5, 0.5],
-      //anchorXUnits: 'fraction',
-      //anchorYUnits: 'pixels',
       src: 'images/icons8-farbe-48.png'
     })
   });
@@ -63,34 +71,3 @@ function drawmap() {
 
     }
 }
-
-/*
-import 'ol/ol.css';
-import Feature from 'ol/Feature';
-import Map from 'ol/Map';
-import Overlay from 'ol/Overlay';
-import View from 'ol/View';
-import Point from 'ol/geom/Point';
-import {Tile as TileLayer, Vector as VectorLayer} from 'ol/layer';
-import TileJSON from 'ol/source/TileJSON';
-import VectorSource from 'ol/source/Vector';
-import {Icon, Style} from 'ol/style';
-*/
-/*
-var rasterLayer = new TileLayer({
-  source: new TileJSON({
-    url: 'https://a.tiles.mapbox.com/v3/aj.1x1-degrees.json',
-    crossOrigin: ''
-  })
-});
-
-var map = new Map({
-  layers: [rasterLayer, vectorLayer],
-  target: document.getElementById('map'),
-  view: new View({
-    center: [0, 0],
-    zoom: 3
-  })
-});
-
-*/

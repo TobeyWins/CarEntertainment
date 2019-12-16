@@ -23,8 +23,8 @@
         </div>
 
         <div class="headright">
-            <div id="time">qweqwe</div>
-            <div id="date">qweqwe</div>
+            <div id="time"></div>
+            <div id="date"></div>
         </div>
     </header>
 
@@ -45,7 +45,7 @@
                     <div class="gridText">phone</div>
                     <div class="gridButton" id="mapButton" type="button"><i class="fas fa-route"></i></div>
                     <div class="gridButton" id="carFunctionsButton" type="button"><i class="fas fa-bars"></i></div>
-                    <div class="gridButton" id="B6" type="button"><i class="fas fa-cog"></i></div>
+                    <div class="gridButton" id="settingsButton" type="button"><i class="fas fa-cog"></i></div>
                     <div class="gridText">navigation</div>
                     <div class="gridText">functions</div>
                     <div class="gridText">settings</div>
@@ -108,12 +108,13 @@
             <div id="dialPanel">012344558877</div>
             <div class="gridContainer">
                 <div class="gridElementTwoColOneRow">
-                    <div class="gridButton" id="call" type="phoneButton">call</i></div>
-                    <div class="gridButton" id="stop" type="phoneButton">stop</i></div>
+                    <div class="gridButton" id="call" type="phoneButton"><i class="fas fa-phone"></i></div>
+                    <div class="gridButton" id="stop" type="phoneButton"><i class="fas fa-phone-slash"></i></div>
                 </div>
+                <div class="gridButton" id="delete" type="phoneButton"><i class="far fa-trash-alt"></i></div>
             </div>
             <div class="gridContainer">
-                <div class="gridElement">
+                <div class="gridElement" id="dialButtons">
                     <div class="gridButton" type="phoneButton">7</div>
                     <div class="gridButton" type="phoneButton">8</div>
                     <div class="gridButton" type="phoneButton">9</div>
@@ -131,7 +132,8 @@
         </div>
 
         <div class="centerGrid" id="mapContainer">
-            <div id="map" class="map">https://icons8.de <button onclick="changepos()">changepos</button></div>
+            <div id="map" class="map"></div>
+            <div>locator icon is copied and licensed from: https://icons8.de <button onclick="changepos()">changepos</button></div>
         </div>
 
         <div class="centerGrid" id="functionsCenterContainer">
@@ -170,7 +172,7 @@
             </div>
         </div>
 
-        <div class="contentItem" id="v6" name="view_6">settings</div>
+        <div class="contentItem" id="settingsCenterContainer" name="view_6">settings</div>
 
     </main>
 
@@ -178,14 +180,7 @@
         <!-- no content yet -->
     </footer>
 
-
     <!-- open street map content-->
-   
-    <!--<script src="https://cdn.rawgit.com/openlayers/openlayers.github.io/master/en/v6.1.1/build/ol.js"></script>-->
-
-    <!-- remove this-->
-    <!--<script type="text/javascript" src="http://www.openstreetmap.org/openlayers/OpenStreetMap.js"></script> -->
-    <!--<script type="text/javascript" src="http://www.openlayers.org/api/OpenLayers.js"></script> -->
     <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.1.1/build/ol.js"></script>
 
 
@@ -198,6 +193,3 @@
 </body>
 
 </html>
-
-
-<!-- <template></template> -->

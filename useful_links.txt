@@ -15,3 +15,6 @@ pi@raspberrypi:~/python $ python3 services.py
  * Debugger PIN: 218-157-138
 192.168.0.156 - - [18/Nov/2019 14:23:13] "GET /action/unlock HTTP/1.1" 200 -
 
+
+tvheadend
+kodi osmc

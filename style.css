@@ -149,6 +149,10 @@ progress::-webkit-progress-value {
   padding-top: 1em;
   font-size: 4em;
 }
+
+.fa-phone, .fa-phone-slash, .fa-trash-alt{
+  font-size: 1em;
+}
   
 .gridButton {
   align-content: center;
@@ -339,4 +343,20 @@ ul {
     background-color: rgba(255, 255, 255, 0.250);
 }
 
+#call {
+  background-color: rgba(123, 255, 0, 0.600);
+}
 
+#stop {
+  background-color: rgba(255, 0, 0, 0.600);
+}
+
+#delete {
+  width: 11em;
+}
+
+#dialPanel {
+  font-size: xx-large;
+  padding: 2em;
+  height: 3em;
+}

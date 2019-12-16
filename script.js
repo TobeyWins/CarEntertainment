@@ -82,7 +82,7 @@ document.getElementById("musicButton").addEventListener("click", function () { d
 document.getElementById("phoneButton").addEventListener("click", function () { displaySelectedElement("phoneCenterContainer") });
 document.getElementById("mapButton").addEventListener("click", function () {displaySelectedElement("mapContainer"); drawmap(); });
 document.getElementById("carFunctionsButton").addEventListener("click", function () { displaySelectedElement("functionsCenterContainer") });
-document.getElementById("B6").addEventListener("click", function () { displaySelectedElement("v6") });
+document.getElementById("settingsButton").addEventListener("click", function () { displaySelectedElement("settingsCenterContainer") });
 
 document.getElementById("doors").addEventListener("click", function () { lock_unlock() });
 document.getElementById("windows").addEventListener("click", function () { displaySelectedElement("windowAccessCenterContainer") });
@@ -94,9 +94,39 @@ document.getElementById("frontRight").addEventListener("click", function () { on
 document.getElementById("backLeft").addEventListener("click", function () { onWindowClick("backLeft"); });
 document.getElementById("backRight").addEventListener("click", function () { onWindowClick("backRight"); });
 
-
 document.getElementById("returnButton").addEventListener("click", function () { hideActiveElement() });
 
+document.getElementById("call").addEventListener("click", function () { 
+    fetchPhone("call");
+    document.getElementById("dialPanel").style.fontWeight="bold"; 
+});
+
+document.getElementById("stop").addEventListener("click", function () {
+    fetchPhone("stop");
+    document.getElementById("dialPanel").innerText = "";
+    document.getElementById("dialPanel").style.fontWeight = "normal";
+});
+
+document.getElementById("delete").addEventListener("click", function () { document.getElementById("dialPanel").innerText = ""; });
+
+document.getElementById("dialButtons").addEventListener("click", function (event) {
+
+    if (!event.target.classList.contains("gridElement")) {
+
+        document.getElementById("dialPanel").innerText += event.target.innerText;
+        console.log(event.target)
+    }
+}
+);
+
+//call
+function fetchPhone(action) {
+    fetch(PHONE_BASE_URL + action).then(function (response) {
+        response.text().then(function (text) {
+            console.log(text);
+        });
+    });
+}
 
 //locking and windows
 const LOCK_BTN_CLASS_STRING = "fa-lock"
