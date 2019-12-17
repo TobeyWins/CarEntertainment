@@ -77,6 +77,7 @@ function showGridButtons() {
     menuContainer.style.display='block';   
 }
 
+// click listeners
 document.getElementById("carDataButton").addEventListener("click", function () { displaySelectedElement("carDataCenterContainer"); updateCarDataItems(); });
 document.getElementById("musicButton").addEventListener("click", function () { displaySelectedElement("musicPlayerContainer") });
 document.getElementById("phoneButton").addEventListener("click", function () { displaySelectedElement("phoneCenterContainer") });
@@ -118,6 +119,15 @@ document.getElementById("dialButtons").addEventListener("click", function (event
     }
 }
 );
+
+document.getElementById("bright").addEventListener("click", function () { document.getElementsByTagName("html")[0].setAttribute("visual_style", "brightDesign") });
+document.getElementById("dark").addEventListener("click", function () { document.getElementsByTagName("html")[0].setAttribute("visual_style", "darkDesign") });
+document.getElementById("black").addEventListener("click", function () { document.getElementsByTagName("html")[0].setAttribute("visual_style", "black") });
+document.getElementById("neo").addEventListener("click", function () { document.getElementsByTagName("html")[0].setAttribute("visual_style", "neo") });
+
+
+//end listeners
+
 
 //call
 function fetchPhone(action) {
