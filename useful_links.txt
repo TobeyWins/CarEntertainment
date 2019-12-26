@@ -18,3 +18,7 @@ pi@raspberrypi:~/python $ python3 services.py
 
 tvheadend
 kodi osmc
+
+
+
+http://192.168.178.56/~pi/index.html
