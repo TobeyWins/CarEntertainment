@@ -1,0 +1,381 @@
+/* tags */
+html {
+  height: 100%;
+
+  font-family: Arial, Helvetica, sans-serif;
+  height: 100vh;
+}
+
+html[visual_style = "brightDesign"] {
+  background-image: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(37,44,102,1) 100%);
+  background-repeat: no-repeat;
+}
+
+html[visual_style = "darkDesign"] {
+  background-image: radial-gradient(circle, rgb(45, 47, 119) 0%, rgb(4, 20, 41) 100%);
+  background-repeat: no-repeat;
+}
+
+html[visual_style = "black"] {
+  background-color: black;
+}
+
+html[visual_style = "neo"] {
+  background-image: linear-gradient(0deg, rgba(253,187,45,1) 0%, rgba(34,193,195,1) 60%, rgba(34,193,195,1) 100%);
+  background-repeat: no-repeat;
+}
+
+body {    
+  color:rgb(255, 255, 255);
+  
+  display: grid;
+  grid-template-areas: "header header header" "nav main side" "footer footer footer"; /*"header" "main" "footer";*/
+  grid-template-columns: 20% auto 20%;
+  grid-template-rows: auto auto auto;
+
+}
+  
+header {
+  grid-area: header;
+  text-align: center;
+
+  height: max-content;
+
+  display: grid;
+  grid-template-areas: "hdl hdm hdr";
+  grid-template-columns: 1fr 2fr 1fr;
+  grid-template-rows: inherit;
+}
+
+main {
+  grid-area: main;
+}
+
+footer {
+  grid-area: footer;
+}
+
+nav {
+  grid-area: nav;
+}
+
+aside {
+  grid-area: side;
+}
+
+progress[value] {
+  /* Reset the default appearance */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  border: none;
+  background-color: rgba(255, 255, 255, 0.10);
+  border-radius: 10px;
+
+  width: 100%;
+  height: 2em;
+}
+
+/* firefox */
+progress[value]::-moz-progress-bar {
+  background-color: rgba(255, 255, 255, 0.4);
+  border-radius: 10px; 
+}
+
+/*chrome and safari */
+progress[value]::-webkit-progress-bar {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 10px; 
+}
+
+progress::-webkit-progress-value {
+  background-color: rgba(255, 255, 255, 0.4);
+  border-radius: 10px; 
+}
+
+/* classes */
+.headleft {
+  grid-area: hdl;
+  line-height: 100%;
+  font-size: x-large;
+}
+
+.headmid {
+  grid-area: hdm;
+  line-height: 100%;
+  font-size: xx-large;
+}
+
+.headright {
+  grid-area: hdr;
+  line-height: 100%;
+  font-size: x-large;
+}
+
+.centerGrid {
+  width: 100%;
+  text-align: center;  /* centers gridContainer which is inline block */
+}
+
+.gridContainer {
+  display: inline-block;  /* used to center all contained content */
+}
+
+.audioPlayerContainer {
+  display: inline-block;  /* used to center all contained content */
+}
+
+.gridElement { 
+  display: grid; 
+  grid-template-rows: max-content max-content max-content max-content; 
+  grid-template-columns: max-content max-content max-content; 
+  align-items: center;
+  text-align: center;
+}
+
+.musicGridElement { 
+  display: grid; 
+  grid-template-rows: max-content max-content max-content max-content; 
+  grid-template-columns: max-content max-content max-content; 
+  align-items: center;
+}
+
+.gridElementTwoCol { 
+  display: grid; 
+  grid-template-rows: max-content max-content; 
+  grid-template-columns: max-content max-content; 
+  align-items: center;
+}
+
+.gridElementTwoColOneRow { 
+  display: grid; 
+  grid-template-rows: max-content; 
+  grid-template-columns: max-content max-content; 
+  align-items: center;
+}
+
+.gridElementTwoColTwoRow { 
+  display: grid; 
+  grid-template-rows: max-content max-content max-content max-content; 
+  grid-template-columns: max-content max-content; 
+  align-items: center;
+}
+
+.fas, .far {
+  padding-top: 1em;
+  font-size: 4em;
+}
+
+.fa-phone, .fa-phone-slash, .fa-trash-alt{
+  font-size: 1em;
+}
+  
+.gridButton {
+  align-content: center;
+}
+
+.returnButton {
+  display: none;
+}
+
+.contentItem {
+  display: none;
+}
+
+.gridText {
+  font-size: larger;
+  padding-bottom: 1em;
+}
+
+
+/* these elements format the scrolling title and everything belonging to the music player */
+.playingTitle {
+  padding-top: 1em;
+  height: 8em;
+}
+
+.playingTitle div {
+  font-size: 2em;
+  height: 2em;
+}
+
+.scroll-left {
+  overflow: hidden;
+  position: relative;
+  white-space: nowrap;
+}
+.scroller {
+  position: absolute;
+  width: 100%;
+  margin: 0;
+  line-height: 100%;
+  text-align: left;
+
+  /* Starting position */
+  -moz-transform:translateX(100%);
+  -webkit-transform:translateX(100%);    
+  transform:translateX(100%);
+
+  /* Apply animation to this element */  
+  -moz-animation: scroll-left 15s linear infinite;
+  -webkit-animation: scroll-left 15s linear infinite;
+  animation: scroll-left 15s linear infinite;
+  }
+  /* Move it (define the animation) */
+  @-moz-keyframes scroll-left {
+  0%   { -moz-transform: translateX(100%); }
+  100% { -moz-transform: translateX(-100%); }
+  }
+  @-webkit-keyframes scroll-left {
+  0%   { -webkit-transform: translateX(100%); }
+  100% { -webkit-transform: translateX(-100%); }
+  }
+  @keyframes scroll-left {
+  0%   { 
+  -moz-transform: translateX(100%); /* Firefox bug fix */
+  -webkit-transform: translateX(100%); /* Firefox bug fix */
+  transform: translateX(100%);       
+  }
+  100% { 
+  -moz-transform: translateX(-100%); /* Firefox bug fix */
+  -webkit-transform: translateX(-100%); /* Firefox bug fix */
+  transform: translateX(-100%); 
+  }
+}
+
+.unselectable {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.progressBarContainer {
+  padding-bottom: 1em;
+}
+
+.trackIsPlaying{
+  background-color: rgba(255, 255, 255, 0.110) !important;
+}
+
+.dataDisplay {
+  font-size: xx-large;
+}
+
+/* element tags */
+div[type="button"] {
+  border-radius: 15px;
+  width: 12em;
+  height: 12em;
+  line-height: 12em;
+  margin: 0.5em;
+
+  border: none;
+  background-color: rgba(255, 255, 255, 0.250);
+
+  transition-duration: 0.25s; /*used for leaving the gridbutton*/
+}
+
+div[type="phoneButton"] {
+  border-radius: 10px;
+  width: 5em;
+  height: 5em;
+  line-height: 5em;
+  margin: 0.5em;
+
+  border: none;
+  background-color: rgba(255, 255, 255, 0.250);
+
+  transition-duration: 0.25s; /*used for leaving the gridbutton*/
+}
+
+/* unusable on tablet */
+div[type="button"]:hover {
+  background-color: rgba(255, 255, 255, 0.500);
+  color:black;
+  transition-duration: 0.25s;
+}
+
+i {
+  width: 100%;
+  text-align: center;
+}
+
+ul {
+  list-style-type: none;
+}
+
+/* ids */
+#time {
+  padding-top: 1em;
+}
+
+#musicPlayerContainer {
+  display: none;
+}
+
+#functionsCenterContainer {
+  display: none;
+}
+
+#carDataCenterContainer {
+  display: none;
+}
+
+#windowAccessCenterContainer {
+  display: none;
+}
+
+#phoneCenterContainer {
+  display: none;
+}
+
+#settingsCenterContainer {
+  display: none;
+}
+
+#mapContainer {
+  display: none;
+}
+
+
+#songList {
+  max-height:12em;
+  overflow-y:auto;
+}
+
+#songsWrapper {
+  margin: 0px;
+  padding: 0px;
+}
+
+#songsWrapper li{
+    border-radius: 3px;
+    width: 100%;
+    height: 3em;
+    line-height: 3em;
+    margin-bottom: 0.5em;
+  
+    border: none;
+    background-color: rgba(255, 255, 255, 0.250);
+}
+
+#call {
+  background-color: rgba(123, 255, 0, 0.600);
+}
+
+#stop {
+  background-color: rgba(255, 0, 0, 0.600);
+}
+
+#delete {
+  width: 11em;
+}
+
+#dialPanel {
+  font-size: xx-large;
+  padding: 2em;
+  height: 3em;
+}

@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="de" visual_style="brightDesign">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>title</title>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="fontawesome-free-5.11.2-web\fontawesome-free-5.11.2-web\css\all.css">
+    <link rel="stylesheet" type="text/css" href="map.css">
+
+    <!-- remove this-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.1.1/css/ol.css" type="text/css">
+
+</head>
+
+<body>
+    <header>
+        <div class="headleft"></div>
+        <div class="headmid">
+            <p>Car Entertainment</p>
+        </div>
+
+        <div class="headright">
+            <div id="time"></div>
+            <div id="date"></div>
+        </div>
+    </header>
+
+    <aside></aside>
+    <nav>
+        <div class="returnButton" id="returnButton" type="button"><i class="far fa-arrow-alt-circle-left"></i></div>
+    </nav>
+
+    <main>
+        <div class="centerGrid" id="menuCenterContainer">
+            <div class="gridContainer">
+                <div class="gridElement">
+                    <div class="gridButton" id="carDataButton" type="button"><i class="fas fa-tachometer-alt"></i></div>
+                    <div class="gridButton" id="musicButton" type="button"><i class="fas fa-music"></i></div>
+                    <div class="gridButton" id="phoneButton" type="button"><i class="fas fa-phone-alt"></i></div>
+                    <div class="gridText">data</div>
+                    <div class="gridText">music</div>
+                    <div class="gridText">phone</div>
+                    <div class="gridButton" id="mapButton" type="button"><i class="fas fa-route"></i></div>
+                    <div class="gridButton" id="carFunctionsButton" type="button"><i class="fas fa-bars"></i></div>
+                    <div class="gridButton" id="settingsButton" type="button"><i class="fas fa-cog"></i></div>
+                    <div class="gridText">navigation</div>
+                    <div class="gridText">functions</div>
+                    <div class="gridText">settings</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="centerGrid" id="carDataCenterContainer">
+            <div class="gridContainer">
+                <div class="gridElementTwoColTwoRow">
+                    <div class="gridButton" type="button">
+                        <div class="dataDisplay" id="speed"></div>
+                    </div>
+                    <div class="gridButton" type="button">
+                        <div class="dataDisplay" id="temp"> </div>
+                    </div>
+                    <div class="gridText">speed</div>
+                    <div class="gridText">temperature</div>
+                    <div class="gridButton" type="button">
+                        <div class="dataDisplay" id="consumption"></div>
+                    </div>
+                    <div class="gridButton" type="button">
+                        <div class="dataDisplay" id="fuelremains"></div>
+                    </div>
+                    <div class="gridText">consumption</div>
+                    <div class="gridText">remaining fuel</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="centerGrid  unselectable" id="musicPlayerContainer">
+            <div class="audioPlayerContainer" id="playerContainer">
+
+                <audio id="audioPlayer" preload="none">
+                    <!-- source is created on javascript in window.onload-->
+                </audio>
+
+                <div class="musicGridElement">
+                    <div div class="musicButton" id="backward" type="button"><i class="fas fa-backward"></i></div>
+                    <div div class="musicButton" id="play_pause" type="button"><i id="play_pause_symbol"
+                            class="fas fa-play"></i></div>
+                    <div div class="musicButton" id="forward" type="button"><i class="fas fa-forward"></i></div>
+                </div>
+                <div class="playingTitle scroll-left">
+                    <div id="playingTitleLabel">currently playing:</div>
+                    <div class="scroller" id="scrollingTitle"></div>
+                </div>
+                <div class="progressBarContainer">
+                    <progress id="progressBar" max="100" value="0"></progress>
+                </div>
+                <div id="songList">
+                    <div>
+                        <ul id="songsWrapper" class="unselectable"></ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="centerGrid unselectable" id="phoneCenterContainer">
+            <div id="dialPanel">012344558877</div>
+            <div class="gridContainer">
+                <div class="gridElementTwoColOneRow">
+                    <div class="gridButton" id="call" type="phoneButton"><i class="fas fa-phone"></i></div>
+                    <div class="gridButton" id="stop" type="phoneButton"><i class="fas fa-phone-slash"></i></div>
+                </div>
+                <div class="gridButton" id="delete" type="phoneButton"><i class="far fa-trash-alt"></i></div>
+            </div>
+            <div class="gridContainer">
+                <div class="gridElement" id="dialButtons">
+                    <div class="gridButton" type="phoneButton">7</div>
+                    <div class="gridButton" type="phoneButton">8</div>
+                    <div class="gridButton" type="phoneButton">9</div>
+                    <div class="gridButton" type="phoneButton">4</div>
+                    <div class="gridButton" type="phoneButton">5</div>
+                    <div class="gridButton" type="phoneButton">6</div>
+                    <div class="gridButton" type="phoneButton">1</div>
+                    <div class="gridButton" type="phoneButton">2</div>
+                    <div class="gridButton" type="phoneButton">3</div>
+                    <div class="gridButton" type="phoneButton">0</div>
+                    <div class="gridButton" type="phoneButton">*</div>
+                    <div class="gridButton" type="phoneButton">#</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="centerGrid" id="mapContainer">
+            <div id="map" class="map"></div>
+            <div>locator icon is copied and licensed from: https://icons8.de <button onclick="changepos()">changepos</button></div>
+        </div>
+
+        <div class="centerGrid" id="functionsCenterContainer">
+            <div class="gridContainer">
+                <div class="gridElementTwoCol">
+                    <div class="gridButton" id="windows" type="button"><i class="far fa-window-maximize"></i></div>
+                    <div class="gridButton" id="doors" type="button"><i id="lockSymbol" class="fas fa-lock"></i></div>
+                    <div class="gridText">windows</div>
+                    <div class="gridText">doors</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="centerGrid" id="windowAccessCenterContainer">
+            <div class="gridContainer">
+                <div class="gridElement">
+                    <div class="gridButton" id="openAllWindow" type="button"><i class="fas fa-window-minimize"></i>
+                    </div>
+                    <div class="gridButton" id="frontLeft" type="button"><i id="frontLeftSymbol"
+                            class="editableWindowButton fas fa-window-maximize"></i></div>
+                    <div class="gridButton" id="frontRight" type="button"><i id="frontRightSymbol"
+                            class="editableWindowButton fas fa-window-maximize"></i></div>
+                    <div class="gridText">open all</div>
+                    <div class="gridText">front left</div>
+                    <div class="gridText">front right</div>
+                    <div class="gridButton" id="closeAllWindow" type="button"><i class="fas fa-window-maximize"></i>
+                    </div>
+                    <div class="gridButton" id="backLeft" type="button"><i id="backLeftSymbol"
+                            class="editableWindowButton fas fa-window-maximize"></i></div>
+                    <div class="gridButton" id="backRight" type="button"><i id="backRightSymbol"
+                            class="editableWindowButton fas fa-window-maximize"></i></div>
+                    <div class="gridText">close all</div>
+                    <div class="gridText">back left</div>
+                    <div class="gridText">back right</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="centerGrid unselectable" id="settingsCenterContainer">
+            <div class="gridContainer">
+                <div class="gridElementTwoCol">
+                    <div class="gridButton" id="bright" type="button"><i class="fas fa-sun"></i></div>
+                    <div class="gridButton" id="dark" type="button"><i class="fas fa-moon"></i></div>
+                    <div class="gridText">bright</div>
+                    <div class="gridText">dark</div>
+                    <div class="gridButton" id="black" type="button"><i class="fas fa-lightbulb"></i></div>
+                    <div class="gridButton" id="neo" type="button"><i class="fas fa-palette"></i></div>
+                    <div class="gridText">black</div>
+                    <div class="gridText">neo</div>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+    <footer>
+        <!-- no content yet -->
+    </footer>
+
+    <!-- open street map content-->
+    <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.1.1/build/ol.js"></script>
+
+
+    <script type="text/javascript" src="common.js"></script>
+    <script type="text/javascript" src="script.js"></script>
+    <script type="text/javascript" src="musicPlayer.js"></script>
+    <script type="text/javascript" src="map.js"></script>
+
+    
+</body>
+
+</html>
